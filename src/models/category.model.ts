@@ -13,6 +13,10 @@ const Categories = new Schema<Category, CategoryModel>({
     type: String,
     required: false,
     trim: true
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User' 
   }
 })
 

@@ -1,13 +1,8 @@
-import type { Model } from 'mongoose'
+import type { Model, ObjectId } from 'mongoose'
 import {Request} from 'express'
 
-export type User = {
-  id?: string
-  name: string
-  email: string
+export type User = ToClientUser & {
   password: string
-  address: string
-  phoneNumber: string
   createdAt?: Date
   lastModified?: Date
 }
@@ -16,4 +11,22 @@ export type UserRequestType = Request & {
   user: User
 }
 
-export type UserModel = Model<User>
+export type JwtRequestType = Request & {
+  user: {
+    sub: ObjectId
+  }
+}
+
+export type ToClientUser = {
+  id?: string 
+  name: string
+  email: string
+  address: string
+  phoneNumber: string
+}
+
+export type UserMethods = {
+  toClient: () => ToClientUser
+}
+
+export type UserModel = Model<User, {}, UserMethods>
