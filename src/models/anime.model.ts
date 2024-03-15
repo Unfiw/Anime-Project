@@ -14,6 +14,11 @@ const Animes = new Schema<Anime, AnimeModel>({
     type: String, 
     required: false, 
     trim: true
+  },
+  studio: {
+    type: String,
+    required: false, // False solo en pruebas
+    trim:true
   }
 })
   

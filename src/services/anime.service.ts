@@ -42,6 +42,29 @@ class AnimeService {
       throw boom.notFound('Anime not found')
     }
   }
+
+  async findByStudio(studio: string) {
+    const anime = await Animes.findOne({ studio }).catch((error) => {
+      console.log('Error while connecting to the DB', error)
+    })
+
+    if (!anime) {
+      throw boom.notFound('Anime not found')
+    }
+  }
+
+  async findByFilter(filter: Partial<Anime>) {
+    try {
+      const animes = await Animes.find(filter);
+      if (!animes.length) {
+        throw boom.notFound('No movies found with the given filter');
+      }
+      return animes;
+    } catch (error) {
+      console.error('Error while connecting to the DB', error);
+      throw boom.badImplementation('Error while connecting to the DB');
+    }
+  }
 }
 
 export default AnimeService

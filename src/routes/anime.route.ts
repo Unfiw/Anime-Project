@@ -30,6 +30,22 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.get('/filter', async (req, res, next) => {
+    try {
+      const { name, studio, description } = req.query;
 
+      const filter: Partial<Anime> = {};
+      if (name) filter.name = name.toString();
+      if (studio) filter.studio = studio.toString();
+      if (description) filter.description = description.toString();
+
+      const animes = await service.findByFilter(filter);
+
+      res.json(animes);
+    } catch (error) {
+      console.error('Error:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 export default router
