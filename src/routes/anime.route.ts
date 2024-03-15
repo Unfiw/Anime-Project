@@ -12,18 +12,18 @@ router.post('/', async (req, res) => {
   res.status(201).json(newAnime)
 })
 
-router.get('/:id', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    const anime = await service.findById(req.params.id)
+    const anime = await service.findAll()
     res.status(200).json(anime)
   } catch (error) {
     next(error)
   }
 })
 
-router.get('/', async (req, res, next) => {
+router.get('/findAnimeId/:id', async (req, res, next) => {
   try {
-    const anime = await service.findAll()
+    const anime = await service.findById(req.params.id)
     res.status(200).json(anime)
   } catch (error) {
     next(error)

@@ -57,7 +57,7 @@ class AnimeService {
     try {
       const animes = await Animes.find(filter);
       if (!animes.length) {
-        throw boom.notFound('No movies found with the given filter');
+        throw boom.notFound('No anime found with the given filter');
       }
       return animes;
     } catch (error) {
