@@ -2,6 +2,7 @@ import Categories from '../models/category.model'
 import { Category, CategoryModel } from '../types/category.type'
 import boom from '@hapi/boom'
 import { ObjectId }  from 'mongoose'
+import { USER_REFERENCE } from '../models/user.model'
 
 class CategoryService {
   async create(category: Category, userId: ObjectId) {
@@ -9,10 +10,12 @@ class CategoryService {
       console.log('Could not save category', error)
     })
     const existingCategory = await this.findById((newCategory as any)._id)
-    return existingCategory.populate([{ path: 'user', strictPopulate: false }])  }
+    return existingCategory.populate(USER_REFERENCE)  }
 
   async findAll() {
-    const categories = await Categories.find().catch((error) => {
+    const categories = await Categories.find()
+    .populate([{ path: 'user', strictPopulate: false }])
+    .catch((error) => {
       console.log('Error while connecting to the DB', error)
     })
 

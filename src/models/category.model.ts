@@ -1,5 +1,8 @@
 import { Schema, model } from 'mongoose'
 import { Category, CategoryModel } from '../types/category.type'
+import { USER_REFERENCE } from './user.model'
+
+export const CATEGORY_REFERENCE = 'Category'
 
 const Categories = new Schema<Category, CategoryModel>({
   name: {
@@ -16,8 +19,8 @@ const Categories = new Schema<Category, CategoryModel>({
   },
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User' 
+    ref: USER_REFERENCE
   }
 })
 
-export default model('Category', Categories)
+export default model(CATEGORY_REFERENCE, Categories)
